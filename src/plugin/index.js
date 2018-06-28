@@ -104,9 +104,9 @@ export default {
                 }
 
                 const body;
-                if( t.isCallExpression(path.node.body) ){
+                if( t.isArrowFunctionExpression(path.node) && t.isCallExpression(path.node.body) ){
                     //CallExpression that in ArrowFunctionExpression doesnot have 'body' property. e.g. h => h(App)
-                    body = path.node.body;
+                    body = t.returnStatement(path.node.body);
                 }else{
                     // ignore empty function body
                     body = path.node.body.body
